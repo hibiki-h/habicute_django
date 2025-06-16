@@ -1,0 +1,14 @@
+# Python
+*.pyc
+__pycache__/
+*.log
+
+# Django
+db.sqlite3
+
+# 環境
+.env
+.venv/
+
+# テスト・キャッシュ
+.cache/
