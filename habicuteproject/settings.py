@@ -34,7 +34,7 @@ SECRET_KEY = env("SECRET_KEY", default=None)
 
 DEBUG = env.bool("DEBUG", default=True)
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
+ALLOWED_HOSTS = []
 
 
 # Application definition
