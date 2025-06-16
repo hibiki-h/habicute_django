@@ -6,10 +6,13 @@ from .settings import *
 
 env = environ.Env()
 environ.Env.read_env(BASE_DIR, ".env")
+print(f'base_dir log : {BASE_DIR}')
 
 ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
+print(f'ALLOWED_HOSTS log : {ALLOWED_HOSTS}')
 
 CSRF_TRUSTED_ORIGINS = ['https://'+os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
+print(f'CSRF_TRUSTED_ORIGINS log : {CSRF_TRUSTED_ORIGINS}')
 
 DEBUG = False
 
