@@ -5,7 +5,7 @@ import environ
 from .settings import * 
 
 env = environ.Env()
-environ.Env.read_env()
+environ.Env.read_env(BASE_DIR, ".env")
 
 ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
 
