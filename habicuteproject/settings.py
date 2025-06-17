@@ -35,10 +35,8 @@ SECRET_KEY = env("SECRET_KEY", default=None)
 DEBUG = env.bool("DEBUG", default=True)
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
-print(f'ALLOWED_HOSTS log : {os.environ.get("ALLOWED_HOSTS")}')
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -94,10 +92,10 @@ WSGI_APPLICATION = 'habicuteproject.wsgi.application'
 DATABASES = {
     "default": {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env('DATABASE_NAME'),
-        'USER': env('DATABASE_USER'),
-        'PASSWORD': env('DATABASE_PASSWORD'),
-        'HOST': env('DATABASE_HOST'),
+        'NAME': "habicutedb",
+        'USER': "hibiki",
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+        'HOST': os.environ.get('DATABASE_HOST'),
         'PORT': '5432',
     },
 }
@@ -156,9 +154,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # cors settings
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
+CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS")
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:5173","http://127.0.0.1:8000"]
+CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS")
 
 CSRF_COOKIE_SECURE = False
 
