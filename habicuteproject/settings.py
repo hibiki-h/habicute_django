@@ -35,7 +35,7 @@ SECRET_KEY = env("SECRET_KEY", default=None)
 DEBUG = env.bool("DEBUG", default=True)
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
-
+print(f'ALLOWED_HOSTS log : {os.environ.get("ALLOWED_HOSTS")}')
 
 # Application definition
 

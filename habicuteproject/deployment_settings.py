@@ -1,18 +1,15 @@
-import os 
+import os
 import dj_database_url
 import environ
 
-from .settings import * 
+from .settings import *
 
 env = environ.Env()
 environ.Env.read_env(BASE_DIR, ".env")
-print(f'base_dir log : {BASE_DIR}')
 
 ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
-print(f'ALLOWED_HOSTS log : {ALLOWED_HOSTS}')
 
 CSRF_TRUSTED_ORIGINS = ['https://'+os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
-print(f'CSRF_TRUSTED_ORIGINS log : {CSRF_TRUSTED_ORIGINS}')
 
 DEBUG = False
 
@@ -41,17 +38,17 @@ CSRF_COOKIE_HTTPONLY = True
 CORS_ALLOW_CREDENTIALS = True
 
 STORAGES = {
-    "default":{
-        "BACKEND" : "django.core.files.storage.FileSystemStorage",
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
-        "BACKEND" : "whitenoise.storage.CompressedStaticFilesStorage",
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
 
 DATABASES = {
     'default': dj_database_url.config(
-        default= os.environ['DATABASE_URL'], 
+        default=os.environ['DATABASE_URL'],
         conn_max_age=600
     )
 }
@@ -115,6 +112,3 @@ DJANGO_REST_PASSWORDRESET_TOKEN_CONFIG = {
         "max_length": 80,
     }
 }
-
-# prosy
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
