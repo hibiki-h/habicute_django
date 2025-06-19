@@ -103,4 +103,4 @@ class UserExistsView(APIView):
 
         exist = User.objects.filter(username=username, email=email).exists()
 
-        return Response({"exists :": exist}, status=status.HTTP_200_OK)
+        return Response(exist, status=status.HTTP_200_OK)
