@@ -9,8 +9,6 @@ def main():
     settings_module = 'habicuteproject.deployment_settings' if 'RENDER_EXTERNAL_HOSTNAME' in os.environ else 'habicuteproject.settings'
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
     
-    print(True if 'RENDER_EXTERNAL_HOSTNAME' in os.environ else False)
-
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

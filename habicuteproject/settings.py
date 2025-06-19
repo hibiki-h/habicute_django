@@ -198,6 +198,3 @@ DJANGO_REST_PASSWORDRESET_TOKEN_CONFIG = {
         "max_length": 80,
     }
 }
-
-# prosy
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
