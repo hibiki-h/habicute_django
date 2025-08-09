@@ -15,6 +15,8 @@ from datetime import timedelta
 from pathlib import Path
 import os
 import environ
+from decouple import config
+from dj_database_url import parse as dburl
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -88,16 +90,10 @@ WSGI_APPLICATION = 'habicuteproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+default_dburl = "sqlite:///" + str(BASE_DIR / "db.sqlite3")
 
 DATABASES = {
-    "default": {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "habicutedb",
-        'USER': "hibiki",
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-        'HOST': os.environ.get('DATABASE_HOST'),
-        'PORT': '5432',
-    },
+    "default": config("DATABASE_URL", default=default_dburl, cast=dburl),
 }
 
 # Password validation
