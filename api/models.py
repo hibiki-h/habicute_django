@@ -1,4 +1,7 @@
-import uuid
+import os
+import environ
+from pathlib import Path
+from django.conf import settings
 from django.db import models
 from django.dispatch import receiver
 from django.utils.html import strip_tags
@@ -7,20 +10,24 @@ from django.template.loader import render_to_string
 from django.contrib.auth.models import AbstractUser
 from django_rest_passwordreset.signals import reset_password_token_created
 
-from django.conf import settings
+
+env = environ.Env()
+BASE_DIR = Path(__file__).resolve().parent.parent
+environ.Env.read_env(BASE_DIR, ".env")
 
 
 class UserModel(AbstractUser):
     username = models.CharField(unique=True, max_length=100, default=1)
-    email = models.EmailField(unique=True, default="h.hatori0603@gmail.com")
+    email = models.EmailField(
+        unique=True, default=os.environ.get('EMAIL_HOST_USER'))
 
 
 class BaseTaskModel(models.Model):
 
     STATUS_CHOICES = [
-        ("Planned", "Planned"),
-        ("Done", "Done"),
-        ("Failed", "Failed"),
+        ("予定", "Planned"),
+        ("完了", "Done"),
+        ("未完了", "Failed"),
     ]
 
     BGCOLOR_CHOISES = [
@@ -33,26 +40,27 @@ class BaseTaskModel(models.Model):
 
     id = models.UUIDField(
         max_length=1000, primary_key=True, blank=False, null=False)
-    title = models.CharField(max_length=100, null=True)
-    title_reason = models.CharField(max_length=100, null=True)
-    achievement_title = models.CharField(max_length=100, null=True)
-    when_if = models.CharField(max_length=100, null=True)
-    when_then = models.CharField(max_length=100, null=True)
-    obstacle_if = models.CharField(max_length=100, null=True)
-    obstacle_then = models.CharField(max_length=100, null=True)
+    title = models.CharField(max_length=100, blank=True, null=True)
+    title_reason = models.CharField(max_length=100, blank=True, null=True)
+    achievement_title = models.CharField(
+        max_length=100, blank=True, null=True)
+    when_if = models.CharField(max_length=100, blank=True, null=True)
+    when_then = models.CharField(max_length=100, blank=True, null=True)
+    obstacle_if = models.CharField(max_length=100, blank=True, null=True)
+    obstacle_then = models.CharField(max_length=100, blank=True, null=True)
     backgroundColor = models.CharField(
-        max_length=10, choices=BGCOLOR_CHOISES, null=True)
+        max_length=10, choices=BGCOLOR_CHOISES, blank=True, null=True)
     status = models.CharField(
-        max_length=7, choices=STATUS_CHOICES, null=True)
+        max_length=7, choices=STATUS_CHOICES, blank=True, null=True)
 
     # date
-    start = models.DateTimeField(null=True)
-    end = models.DateTimeField(null=True)
-    allDay = models.BooleanField(null=True)
+    start = models.DateTimeField(blank=True, null=True)
+    end = models.DateTimeField(blank=True, null=True)
+    allDay = models.BooleanField(blank=True, null=True)
 
     # create date
-    created = models.DateTimeField(auto_now_add=True, null=True)
-    modified = models.DateTimeField(auto_now=True, null=True)
+    created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    modified = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     class Meta:
         abstract = True
